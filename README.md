@@ -1,245 +1,103 @@
-# WalkWithJesus Frontend
+# WalkWithJesus
 
-A modern Christian AI assistant built with Retrieval-Augmented Generation (RAG) to provide scripture-grounded encouragement, guidance, and biblical insights.
+WalkWithJesus is a Christian AI assistant that combines Retrieval-Augmented Generation (RAG), semantic search, and Large Language Models to provide scripture-grounded guidance and encouragement.
 
-## Overview
-
-WalkWithJesus is designed to help users find relevant Bible verses and receive compassionate, scripture-based responses through an AI-powered conversational experience.
-
-The frontend provides an intuitive chat interface that communicates with the WalkWithJesus backend API, displaying AI responses alongside supporting biblical references.
-
----
+The application retrieves relevant biblical passages using vector similarity search and uses those passages as context for generating responses. Every answer is grounded in retrieved scripture and includes source attribution to maintain transparency and reduce hallucinations.
 
 ## Features
 
-### Current Planned Features
+### Implemented
 
-* Conversational AI chat interface
-* Scripture-grounded responses
-* Source attribution for retrieved Bible verses
-* Responsive design for desktop and mobile
-* Conversation history
-* Real-time streaming responses
-* Biblical reference display
-* Loading and typing indicators
+* Semantic scripture retrieval using vector embeddings
+* Retrieval-Augmented Generation (RAG)
+* OpenAI embeddings integration
+* Local vector search with FAISS
+* Metadata filtering
+* Similarity score retrieval
+* Context-aware prompt construction
+* Streaming AI responses
+* Conversation memory
+* Source attribution and scripture references
+* FastAPI backend
+* Next.js frontend
+* Responsive chat interface
+* Real-time conversational experience
 
-### Future Features
-
-* User authentication
-* Saved conversations
-* Prayer journal integration
-* Personalized devotional recommendations
-* Daily verse notifications
-* Multi-language support
-* Church and ministry integrations
-
----
-
-## Tech Stack
-
-### Frontend
-
-* Next.js
-* React
-* TypeScript
-* Tailwind CSS
-
-### Backend
-
-* Python
-* FastAPI
-* OpenAI API
-* Vector Database (FAISS / future cloud vector store)
-
-### AI Architecture
+## Architecture
 
 ```text
 User
   ↓
-Frontend (Next.js)
+Next.js Frontend
   ↓
 FastAPI Backend
   ↓
+Conversation Memory
+  ↓
 Retriever
   ↓
-Vector Search
+FAISS Vector Store
   ↓
-Retrieved Scriptures
+Relevant Scriptures
+  ↓
+Prompt Construction
   ↓
 OpenAI LLM
   ↓
-Response Generation
-  ↓
-Frontend Display
+Grounded Response
 ```
 
----
+## Retrieval Pipeline
 
-## Project Structure
+1. User submits a question.
+2. Query is converted into an embedding.
+3. FAISS performs similarity search.
+4. Relevant scripture passages are retrieved.
+5. Retrieved context is injected into the prompt.
+6. The LLM generates a grounded response.
+7. Sources are returned to the frontend.
 
-```text
-frontend/
-│
-├── public/
-│
-├── src/
-│   ├── app/
-│   ├── components/
-│   │   ├── Chat/
-│   │   ├── Message/
-│   │   ├── Sources/
-│   │   └── Layout/
-│   │
-│   ├── hooks/
-│   ├── lib/
-│   ├── services/
-│   ├── types/
-│   └── utils/
-│
-├── .env.local
-├── package.json
-└── README.md
+## Example Query
+
+**User**
+
+> I feel anxious about my future.
+
+**Retrieved Context**
+
+* Philippians 4:6–7
+* Isaiah 41:10
+
+**Response**
+
+The assistant provides scripture-based encouragement while citing the passages used to generate the answer.
+
+## Key Engineering Concepts
+
+This project demonstrates:
+
+* Retrieval-Augmented Generation (RAG)
+* Semantic search
+* Embeddings
+* Vector databases
+* Prompt engineering
+* Context engineering
+* Conversational AI
+* AI application architecture
+* Full-stack AI development
+
+## Lessons Learned
+
+During development, the project explored:
+
+* Retrieval quality optimization
+* Semantic representation design
+* Metadata filtering strategies
+* Vector search systems
+* OpenAI embedding workflows
+* Prompt construction techniques
+* AI system orchestration
+* Infrastructure troubleshooting and debugging
+
 ```
-
----
-
-## Getting Started
-
-### Install Dependencies
-
-```bash
-npm install
 ```
-
-### Run Development Server
-
-```bash
-npm run dev
-```
-
-Open:
-
-```text
-http://localhost:3000
-```
-
----
-
-## Environment Variables
-
-Create a `.env.local` file:
-
-```env
-NEXT_PUBLIC_API_URL=http://localhost:8000
-```
-
----
-
-## API Integration
-
-### Chat Endpoint
-
-```http
-POST /chat
-```
-
-Request:
-
-```json
-{
-  "message": "I feel anxious about my future."
-}
-```
-
-Response:
-
-```json
-{
-  "response": "Philippians 4:6-7 reminds us...",
-  "sources": [
-    {
-      "reference": "Philippians 4:6-7"
-    },
-    {
-      "reference": "Isaiah 41:10"
-    }
-  ]
-}
-```
-
----
-
-## User Experience Goals
-
-The application should feel:
-
-* Compassionate
-* Calm
-* Trustworthy
-* Scripture-centered
-* Easy to use
-* Accessible
-
-The interface should prioritize clarity and spiritual encouragement rather than overwhelming users with technical information.
-
----
-
-## Design Principles
-
-### Scripture First
-
-Every response should be grounded in retrieved biblical content.
-
-### Transparency
-
-Users should always be able to see the scripture references used in a response.
-
-### Simplicity
-
-The UI should remain clean and distraction-free.
-
-### Accessibility
-
-The application should support users across devices and varying levels of technical ability.
-
----
-
-## Development Roadmap
-
-### Phase 1
-
-* Chat interface
-* API integration
-* Response rendering
-
-### Phase 2
-
-* Source attribution UI
-* Streaming responses
-* Conversation history
-
-### Phase 3
-
-* User accounts
-* Saved conversations
-* Profile settings
-
-### Phase 4
-
-* Personalized recommendations
-* Prayer journal
-* Devotional features
-
-### Phase 5
-
-* Mobile application
-* Notifications
-* Advanced personalization
-
----
-
-## Mission
-
-WalkWithJesus exists to combine modern AI technology with biblical wisdom, helping people access scripture-based encouragement, guidance, and hope through a simple conversational experience.
-
-The goal is not to replace pastors, churches, or spiritual communities, but to provide an accessible tool that helps users engage more deeply with God's Word.
